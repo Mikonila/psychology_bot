@@ -1,0 +1,34 @@
+version: '3.9'
+
+services:
+  db:
+    image: postgres:15
+    container_name: psbot_db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: ps_bot
+    ports:
+      - "5432:5432"
+    volumes:
+      - ps_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U postgres -d ps_bot"]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+  bot:
+    build: .
+    container_name: psbot
+    command: python bot.py
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      - DB_URL=postgresql+asyncpg://postgres:postgres@db:5432/ps_bot
+    restart: always
+
+volumes:
+  ps_data:

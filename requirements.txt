@@ -1,0 +1,15 @@
+aiogram==3.22.0
+openai==1.102.0
+python-dotenv==1.1.1
+numpy>=1.21.0,<2.0.0
+scikit-learn==1.7.1
+matplotlib==3.8.0
+reportlab==4.0.4
+tiktoken==0.11.0
+aiofiles==24.1.0
+yookassa==2.3.0
+urllib3<2
+sqlalchemy==2.0.30
+asyncpg==0.29.0
+psycopg2-binary==2.9.9
+flask==3.0.3
